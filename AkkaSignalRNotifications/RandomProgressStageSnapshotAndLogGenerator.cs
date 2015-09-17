@@ -29,7 +29,7 @@ namespace AkkaSignalRNotifications
 
         private static void SendMessage(Random rnd, Random longRandom)
         {
-            var randomValue = rnd.Next(1);
+            var randomValue = rnd.Next(2);
             if (randomValue == 0)
             {
                 SystemActors.NotificationActor.Tell(CreateProgressSnapshotMessage(longRandom));

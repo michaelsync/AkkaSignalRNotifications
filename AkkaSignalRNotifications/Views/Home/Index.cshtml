@@ -3,17 +3,13 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <button id="SubscribeButton">Subscribe</button>
-                <button id="UnsubscribeButton">Unsubscribe</button>
-            </div>
-        </div>
+    <div>
+        <button id="SubscribeButton">Subscribe</button>
+        <button id="UnsubscribeButton">Unsubscribe</button>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div >
         <div class="well" id="output">
             <!-- ko foreach: messages -->
             <p data-bind="text:message"></p>
@@ -43,11 +39,13 @@
                 
                 var akkaHub = $.connection.akkaHub;
                 
-                akkaHub.client.pushProgressSnapshotMessage = function (message) {
+                akkaHub.client.pushProgressStageSnapshot = function (message) {
+                    message = "ProgressSnapshotMessage - [Status:" + message.Status + ",TotalEvents:" + message.TotalEvents + ']';
                     stream.addMessage(message);
                 };
 
-                akkaHub.client.pushLogMessage = function (message) {
+                akkaHub.client.PushLogMessage = function (message) {
+                    message = "LogMessage - [Message:" + message.Message + ",Level:" + message.Level + ']';
                     stream.addMessage(message);
                 };
 
