@@ -4,17 +4,20 @@
 
 <div class="row">
     <div class="col-md-4">
-        <button>Subscribe</button>
-
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <button id="SubscribeButton">Subscribe</button>
+                <button id="UnsubscribeButton">Unsubscribe</button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">Panel heading without title</div>
-            <div class="panel-body">
-                Panel content
-            </div>
+        <div class="well" id="output">
+            <!-- ko foreach: messages -->
+            <p data-bind="text:message"></p>
+            <!-- /ko -->
         </div>
     </div>
 </div>
@@ -23,5 +26,41 @@
         @Scripts.Render("~/bundles/signalr")
         <script src="~/signalr/hubs"></script>
         <script>
+            function StreamViewModel() {
+                var self = this;
+
+                self.messages = ko.observableArray([]);
+
+                self.addMessage = function (message) {
+                    self.messages.unshift({ message: message });
+                };
+            }
+
+            var stream = new StreamViewModel();
+            ko.applyBindings(stream);
+
+            $(function () {
+                
+                var akkaHub = $.connection.akkaHub;
+                
+                akkaHub.client.pushProgressSnapshotMessage = function (message) {
+                    stream.addMessage(message);
+                };
+
+                akkaHub.client.pushLogMessage = function (message) {
+                    stream.addMessage(message);
+                };
+
+
+                $.connection.hub.start().done(function () {
+                    $('#SubscribeButton').click(function () {
+                        akkaHub.server.subscribe();
+                    });
+
+                    $('#UnsubscribeButton').click(function () {
+                        akkaHub.server.unsubscribe();
+                    });
+                });
+            });
         </script>
     }
