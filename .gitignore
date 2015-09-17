@@ -1,0 +1,15 @@
+[Oo]bj/
+[Bb]in/
+TestResults/
+*.suo
+*.user
+*.docstates
+*.nupkg
+packages/
+[Bb]uild/
+[Nn]u[Pp]ack/
+*.local.xml
+*.vs10x
+Thumbs.db
+_ReSharper.*/
+Publish/
