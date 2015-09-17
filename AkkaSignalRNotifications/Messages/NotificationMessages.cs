@@ -102,6 +102,11 @@ namespace AkkaSignalRNotifications.Messages
         }
     }
 
+    public class SubscribeAllMessage
+    {
+        
+    }
+
     public class UnsubscribeMessage
     {
         public IActorRef Subscriber { get; private set; }

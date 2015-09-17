@@ -2,8 +2,26 @@
     ViewBag.Title = "Home Page";
 }
 
-
 <div class="row">
     <div class="col-md-4">
+        <button>Subscribe</button>
+
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Panel heading without title</div>
+            <div class="panel-body">
+                Panel content
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts{
+        @Scripts.Render("~/bundles/signalr")
+        <script src="~/signalr/hubs"></script>
+        <script>
+        </script>
+    }
