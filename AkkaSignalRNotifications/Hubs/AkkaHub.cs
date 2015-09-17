@@ -1,4 +1,6 @@
-﻿using AkkaSignalRNotifications.Messages;
+﻿using Akka.Actor;
+using AkkaSignalRNotifications.Actors;
+using AkkaSignalRNotifications.Messages;
 using Microsoft.AspNet.SignalR;
 
 namespace AkkaSignalRNotifications.Hubs
@@ -16,5 +18,19 @@ namespace AkkaSignalRNotifications.Hubs
             var context = GlobalHost.ConnectionManager.GetHubContext<AkkaHub>();
             context.Clients.All.pushLogMessage(update);
         }
+
+        public void Subscribe()
+        {
+            SystemActors.SignalRActor.Tell(new SubscribeAllMessage());
+            RandomProgressStageSnapshotAndLogGenerator.Start();
+        }
+
+        public void Unsubscribe()
+        {
+            RandomProgressStageSnapshotAndLogGenerator.Stop();
+            SystemActors.SignalRActor.Tell(new UnsubscribeAllMessage());
+        }
     }
+
+    
 }

@@ -101,12 +101,6 @@ namespace AkkaSignalRNotifications.Messages
             LogLevel = logLevel;
         }
     }
-
-    public class SubscribeAllMessage
-    {
-        
-    }
-
     public class UnsubscribeMessage
     {
         public IActorRef Subscriber { get; private set; }
@@ -115,5 +109,12 @@ namespace AkkaSignalRNotifications.Messages
         {
             Subscriber = subscriber;
         }
+    }
+    public class SubscribeAllMessage
+    {
+
+    }
+    public class UnsubscribeAllMessage
+    {
     }
 }

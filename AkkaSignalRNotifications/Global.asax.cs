@@ -20,8 +20,9 @@ namespace AkkaSignalRNotifications
 
             ActorSystem = ActorSystem.Create("webcrawler");
             var notificationActor = ActorSystem.ActorOf(Props.Create(() => new NotificationActor()), "notificationActor");
-            var signalRActor = ActorSystem.ActorOf(Props.Create(() => new SignalRActor(notificationActor)), "signalRActor");
-            signalRActor.Tell(new SubscribeAllMessage());
+            SystemActors.NotificationActor = notificationActor;
+            SystemActors.SignalRActor = ActorSystem.ActorOf(Props.Create(() => new SignalRActor(notificationActor)), "signalRActor");
+
         }
     }
 }
